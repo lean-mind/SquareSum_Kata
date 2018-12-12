@@ -1,8 +1,8 @@
-import {passwordValidator} from "./passwordValidator";
+import passwordValidator from "./passwordValidator";
 
 
 describe('The password validator', () => {
     it("works", () => {
-        expect(passwordValidator().isValid()).toBe(true);
+        expect(passwordValidator().isValid("foo")).toBe(true);
     });
 });
