@@ -29,7 +29,7 @@ describe('The password validator', () => {
         let actualPassword2 = "";
         document.getElementById("password1").value = expectedPassword1;
         document.getElementById("password2").value = expectedPassword2;
-        theView.subscribeValidation((password1, password2) => {
+        theView.onValidate((password1, password2) => {
             actualPassword1 = password1;
             actualPassword2 = password2;
         });
@@ -73,7 +73,7 @@ describe('The password validator', () => {
             wasCalled = true;
         };
 
-        mockView.fireEvent("abcd", "abcd");
+        mockView.informSubscribers("abcd", "abcd");
 
         expect(wasCalled).toBe(true);
     });
@@ -89,7 +89,7 @@ describe('The password validator', () => {
             wasCalled = true;
         };
 
-        mockView.fireEvent("abcd", "abcd");
+        mockView.informSubscribers("abcd", "abcd");
 
         expect(wasCalled).toBe(true);
     });
