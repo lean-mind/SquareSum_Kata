@@ -1,6 +1,12 @@
 export default function view(){
     let subscribers = [];
+    function fireEvent(password1, password2) {
+        subscribers.forEach((subscriber) => {
+            subscriber(password1, password2);
+        });
+    }
     return {
+        fireEvent: fireEvent,
         subscribeValidation: (subscriber) => {
             subscribers.push(subscriber);
         },
@@ -17,9 +23,7 @@ export default function view(){
                    .getElementById("password1").value;
                let password2 = document
                    .getElementById("password2").value;
-               subscribers.forEach((subscriber) => {
-                   subscriber(password1, password2);
-               });
+               fireEvent(password1, password2);
             });
         }
     };

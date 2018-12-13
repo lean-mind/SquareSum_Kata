@@ -63,6 +63,36 @@ describe('The password validator', () => {
         expect(document.getElementById("result").value)
             .toBe("Invalid!");
     });
+    it('validates password from view', () => {
+        let mockView = view();
+        mockView.init = () => {};
+        let theApp = app(passwordValidator(), mockView);
+        theApp.init();
+        let wasCalled = false;
+        mockView.renderInvalidPasswordMessage = () => {
+            wasCalled = true;
+        };
+
+        mockView.fireEvent("abcd", "abcd");
+
+        expect(wasCalled).toBe(true);
+    });
+    it('validates password from view with mock validator', () => {
+        let mockView = view();
+        mockView.init = () => {};
+        let mockValidator = passwordValidator();
+        mockValidator.isValid = () => { return true};
+        let theApp = app(mockValidator, mockView);
+        theApp.init();
+        let wasCalled = false;
+        mockView.renderValidPasswordMessage = () => {
+            wasCalled = true;
+        };
+
+        mockView.fireEvent("abcd", "abcd");
+
+        expect(wasCalled).toBe(true);
+    });
 
     xit('compares that password is introduced correctly', () => {
         let theApp = app();
