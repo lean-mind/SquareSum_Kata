@@ -7,6 +7,9 @@ export default function view(){
         renderValidPasswordMessage: () => {
             document.getElementById("result").value = "Valid!";
         },
+        renderInvalidPasswordMessage: () => {
+            document.getElementById("result").value = "Invalid!";
+        },
         init: () => {
             let validateButton = document.getElementById("validate");
             validateButton.addEventListener("click", () => {
@@ -14,8 +17,11 @@ export default function view(){
                    .getElementById("password1").value;
                let password2 = document
                    .getElementById("password2").value;
-               subscribers[0](password1, password2);
+               subscribers.forEach((subscriber) => {
+                   subscriber(password1, password2);
+               });
             });
         }
     };
 }
+

@@ -1,22 +1,19 @@
 import passwordValidator from "./passwordValidator.js";
+import view from "./view";
 
 export default function app(){
+    let theView = view();
     return {
         init: () => {
-            let validateButton = document.getElementById("validate");
-            validateButton.addEventListener("click", () => {
-               let password1 = document.getElementById("password1").value;
-                let password2 = document.getElementById("password2").value;
-                console.log(password1, password2);
-                let resultLabel = document.getElementById("result");
+            theView.init();
+            theView.subscribeValidation((password1, password2) => {
                 if (passwordValidator().isValid(password1)){
-                    resultLabel.innerText = "Valid!";
+                    theView.renderValidPasswordMessage();
                 }
                 else {
-                    resultLabel.innerText = "Invalid!!!";
+                    theView.renderInvalidPasswordMessage();
                 }
             });
-
             console.log('Initialized!');
         }
     };

@@ -5,14 +5,6 @@ import view from "./view";
 
 describe('The password validator', () => {
     beforeEach(() => {
-        document.body.innerHTML = '';
-    });
-
-    it("works", () => {
-        expect(passwordValidator().isValid("foo")).toBe(true);
-    });
-
-    it("throws event when validation is clicked", () => {
         document.body.innerHTML = `
         <div>
             <label>Password:</label> 
@@ -22,6 +14,13 @@ describe('The password validator', () => {
             <button id="validate">Validate</button>
             <label id="result"></label>
         </div>`;
+    });
+
+    it("works", () => {
+        expect(passwordValidator().isValid("foo")).toBe(true);
+    });
+
+    it("throws event when validation is clicked", () => {
         let theView = view();
         theView.init();
         let expectedPassword1 = "abcd";
@@ -40,15 +39,6 @@ describe('The password validator', () => {
     });
 
     it("renders validation result", () => {
-        document.body.innerHTML = `
-        <div>
-            <label>Password:</label> 
-            <input id="password1" type="text"/>
-                <label>Re-type password:</label>
-            <input id="password2" type="text"/>
-            <button id="validate">Validate</button>
-            <label id="result"></label>
-        </div>`;
         let theView = view();
         theView.init();
         theView.renderValidPasswordMessage();
@@ -56,6 +46,23 @@ describe('The password validator', () => {
             .toBe("Valid!");
     });
 
+    it("renders invalidation result", () => {
+        let theView = view();
+        theView.init();
+        theView.renderInvalidPasswordMessage();
+        expect(document.getElementById("result").value)
+            .toBe("Invalid!");
+    });
+
+    it('validates password from view', () => {
+        let theApp = app();
+        theApp.init();
+        document.getElementById("password1").value = "abcd";
+        document.getElementById("password2").value = "abcd";
+        document.getElementsByTagName("button")[0].click();
+        expect(document.getElementById("result").value)
+            .toBe("Invalid!");
+    });
 
     xit('compares that password is introduced correctly', () => {
         let theApp = app();
