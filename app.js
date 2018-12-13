@@ -6,7 +6,7 @@ export default function app(
     return {
         init: () => {
             aView.init();
-            aView.onValidate((password1, password2) => {
+            aView.onValidationClicked((password1, password2) => {
                 if (aValidator.isValid(password1)){
                     aView.renderValidPasswordMessage();
                 }

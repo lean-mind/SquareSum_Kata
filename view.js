@@ -1,14 +1,14 @@
 export default function view(){
-    let subscribers = [];
+    let validationClickSubscribers = [];
     function informSubscribers(password1, password2) {
-        subscribers.forEach((subscriber) => {
-            subscriber(password1, password2);
+        validationClickSubscribers.forEach((validation) => {
+            validation(password1, password2);
         });
     }
     return {
         informSubscribers: informSubscribers,
-        onValidate: (subscriber) => {
-            subscribers.push(subscriber);
+        onValidationClicked: (validation) => {
+            validationClickSubscribers.push(validation);
         },
         renderValidPasswordMessage: () => {
             document.getElementById("result").value = "Valid!";
